@@ -63,7 +63,21 @@ router.get("/", async (req, res, next) => {
       message: err.message,
     });
   }
-}
-);
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const postUserResults = {
+      id: 6,
+      message: "user added"
+    }
+    return res.json(postUserResults);
+  }
+  catch (err) {
+    res.status(err.status || 500).json({
+      message: err.message,
+    });
+  }
+});
 
 module.exports = router;

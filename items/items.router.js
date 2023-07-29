@@ -48,6 +48,8 @@ const getItems = async () => {
   return items;
 }
 
+
+
 router.get("/", async (req, res, next) => {
   try {
     const items = await getItems();

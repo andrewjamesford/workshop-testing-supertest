@@ -70,7 +70,7 @@ router.post("/", async (req, res, next) => {
     const postUserResults = {
       id: 6,
       message: "user added"
-    }
+    };
     return res.json(postUserResults);
   }
   catch (err) {

@@ -1,6 +1,5 @@
 const request = require("supertest");
 const app = require("../app");
-const { describe } = require("node:test");
 
 describe("GIVEN that the GET /items route exist", () => {
 	test("WHEN there are items THEN return status 200 and an array of items", async () => {
@@ -58,4 +57,15 @@ describe("GIVEN that the GET /items route exist", () => {
 		expect(response.status).toBe(200);
 		expect(response.body).toEqual(expectedResponseData);
 	});
+
+});
+
+describe("GIVEN when we GET /item route called", () => {
+    test("WHEN the route doesn't exist THEN return status 404 ", async () => {
+        const response = await request(app)
+			.get("/api/item")
+			.set("Accept", "application/json");
+
+		expect(response.status).toBe(404);
+    });
 });

@@ -28,15 +28,20 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-router.post("/shipping", async (req, res, next) => {
+router.post("/shipping", async (req, res) => {
     const { cartTotal, cartQuantity } = req.body;
     let shippingCost = 29.99;
+    console.log(cartTotal, cartQuantity, req.body);
+    // Free shipping if over $100 and the cart quantity is less than 5 items.
+    if (cartTotal > 100 && cartQuantity <= 5) {
+        shippingCost = 0;
+    }
     // If there are more than 10 items and the total is less than $200 set shipping $49.99
     if (cartQuantity > 10 && cartTotal <= 200) {
         shippingCost = 49.99;
     }
-    // Free shipping if over $100 and the cart quantity is less than 5 items.
-    if (cartTotal > 100 && cartQuantity <= 5) {
+    // Free shipping if over $500 and the cart quantity is less than or equal 10 items.
+    if (cartTotal >= 500 && cartQuantity <= 10) {
         shippingCost = 0;
     }
     return res.json({ shippingCost: shippingCost});

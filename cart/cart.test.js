@@ -28,16 +28,24 @@ describe("GIVEN that the GET /cart route exist", () => {
 });
 
 describe.each([
-    { cartTotal: 101, cartQuantity: 3, expected: 29.99 },
+    { cartTotal: 101, cartQuantity: 3, expected: 0 },
     { cartTotal: 1, cartQuantity: 3, expected: 29.99 },
     { cartTotal: -1, cartQuantity: 3, expected: 29.99 },
-    { cartTotal: 100.01, cartQuantity: 3, expected: 29.99 },
-    { cartTotal: 1111100.0000001, cartQuantity: 3, expected: 29.99 },
+    { cartTotal: 199, cartQuantity: 11, expected: 49.99 },
+    { cartTotal: 300, cartQuantity: 11, expected: 29.99 },
+    { cartTotal: 550, cartQuantity: 10, expected: 0 },
+    { cartTotal: 550, cartQuantity: 11, expected: 29.99 },
+    { cartTotal: 100.01, cartQuantity: 3, expected: 0 },
+    { cartTotal: 1111100.0000001, cartQuantity: 3, expected: 0 },
     { cartTotal: 20.0000001, cartQuantity: 3, expected: 29.99 },
-  ])('Test a range of number inputs', ({ cartTotal, expected }) => {
-    test(`${cartTotal} returns ${expected}`, async () => {
+  ])('Test a range of number inputs', ({ cartTotal, cartQuantity, expected }) => {
+    test(`${cartTotal} and ${cartQuantity} returns ${expected}`, async () => {
         const response = await request(app)
         .post("/api/cart/shipping")
+        .send({
+            cartTotal: cartTotal,
+            cartQuantity: cartQuantity
+        })
         .set("Accept", "application/json");
 
         const expectedResponseData = {

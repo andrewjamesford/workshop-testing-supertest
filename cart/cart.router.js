@@ -31,7 +31,6 @@ router.get("/", async (req, res, next) => {
 router.post("/shipping", async (req, res) => {
     const { cartTotal, cartQuantity } = req.body;
     let shippingCost = 29.99;
-    console.log(cartTotal, cartQuantity, req.body);
     // Free shipping if over $100 and the cart quantity is less than 5 items.
     if (cartTotal > 100 && cartQuantity <= 5) {
         shippingCost = 0;

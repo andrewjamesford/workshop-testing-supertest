@@ -38,7 +38,7 @@ describe.each([
     { cartTotal: 100.01, cartQuantity: 3, expected: 0 },
     { cartTotal: 1111100.0000001, cartQuantity: 3, expected: 0 },
     { cartTotal: 20.0000001, cartQuantity: 3, expected: 29.99 },
-  ])('Test a range of number inputs', ({ cartTotal, cartQuantity, expected }) => {
+  ])('Calculate shipping with the following range of number inputs', ({ cartTotal, cartQuantity, expected }) => {
     test(`${cartTotal} and ${cartQuantity} returns ${expected}`, async () => {
         const response = await request(app)
         .post("/api/cart/shipping")
